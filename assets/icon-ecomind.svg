@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="EcoMind">
+  <defs>
+    <linearGradient id="tile" x1="80" y1="48" x2="440" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2A8F55"/>
+      <stop offset="100%" stop-color="#1B5E3B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- App tile -->
+  <rect width="512" height="512" rx="108" fill="url(#tile)"/>
+
+  <!--
+    Mind: clean side-profile head facing right.
+    Eco: leaf growing from the crown (consciousness + growth).
+  -->
+  <g transform="translate(16, 8)">
+    <!-- Head profile -->
+    <path
+      fill="#F7FCF8"
+      d="M176 372
+         C152 352 140 320 140 284
+         C140 220 178 168 232 148
+         C262 136 290 138 312 152
+         C332 164 344 184 348 208
+         C368 214 384 232 386 256
+         C388 282 374 304 350 314
+         C352 330 348 346 336 358
+         C318 376 294 384 268 384
+         L268 396
+         C268 412 254 424 238 424
+         C222 424 208 412 208 396
+         L208 384
+         C196 382 184 378 176 372 Z"/>
+
+    <!-- Leaf accent inside mind (idea / awareness) -->
+    <path
+      fill="#2E8B57"
+      d="M248 248
+         C262 228 286 216 308 220
+         C300 244 284 262 262 274
+         C254 266 248 258 248 248 Z"/>
+    <path
+      fill="#3D8B5F"
+      d="M248 248
+         C234 232 222 210 224 188
+         C248 196 258 224 262 248
+         C258 250 252 250 248 248 Z"/>
+
+    <!-- Stem from crown -->
+    <path
+      d="M278 148 C282 122 286 96 290 72"
+      fill="none"
+      stroke="#B8ECC8"
+      stroke-width="16"
+      stroke-linecap="round"/>
+
+    <!-- Twin leaves -->
+    <path
+      fill="#B8ECC8"
+      d="M290 112
+         C254 102 228 78 222 48
+         C258 58 280 84 290 112 Z"/>
+    <path
+      fill="#EAF9F0"
+      d="M290 100
+         C322 88 350 66 358 38
+         C328 48 304 74 290 100 Z"/>
+  </g>
+</svg>
