@@ -42,11 +42,11 @@ export function Header({ solid = false }: HeaderProps) {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
-            src="/brand/icon-ecomind.svg"
+            src="/brand/icon-ecomind.png"
             alt=""
-            width={40}
-            height={40}
-            className="h-10 w-10"
+            width={512}
+            height={512}
+            className="h-10 w-10 rounded-full"
             priority
           />
           <span

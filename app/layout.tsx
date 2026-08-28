@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   description:
     "A EcoMind educa sobre desmatamento e queimadas, propõe missões de conscientização e mostra caminhos práticos para agir na escola, em casa e na comunidade.",
   icons: {
-    icon: "/brand/icon-ecomind.svg",
+    icon: "/brand/icon-ecomind.png",
+    apple: "/brand/icon-ecomind.png",
   },
   openGraph: {
     title: "EcoMind — Consciência ambiental + tecnologia",

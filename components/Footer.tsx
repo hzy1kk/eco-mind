@@ -17,11 +17,11 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-2.5">
             <Image
-              src="/brand/icon-ecomind.svg"
+              src="/brand/icon-ecomind.png"
               alt=""
-              width={36}
-              height={36}
-              className="h-9 w-9"
+              width={512}
+              height={512}
+              className="h-9 w-9 rounded-full"
             />
             <span className="font-display text-xl font-semibold text-mist">
               EcoMind

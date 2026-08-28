@@ -34,11 +34,11 @@ export function Idea() {
               className="absolute -inset-8 rounded-full bg-sprout/40 blur-2xl"
             />
             <Image
-              src="/brand/logo-ecomind.svg"
-              alt="Logo EcoMind: floresta viva e regeneração no centro"
-              width={280}
-              height={370}
-              className="relative h-auto w-56 md:w-72"
+              src="/brand/logo-ecomind.png"
+              alt="Logo EcoMind: folha e mente conectadas"
+              width={512}
+              height={512}
+              className="relative h-auto w-48 rounded-2xl md:w-56"
             />
           </div>
         </Reveal>

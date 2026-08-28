@@ -12,11 +12,11 @@ export function Hero() {
         <div className="max-w-2xl">
           <div className="animate-fade-up mb-4 flex items-center gap-3 md:mb-6">
             <Image
-              src="/brand/logo-ecomind.svg"
+              src="/brand/logo-ecomind.png"
               alt="EcoMind"
-              width={88}
-              height={116}
-              className="h-14 w-auto drop-shadow-sm md:h-24"
+              width={512}
+              height={512}
+              className="h-20 w-20 rounded-full drop-shadow-lg md:h-28 md:w-28"
               priority
             />
           </div>
