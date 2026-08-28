@@ -90,15 +90,39 @@ export function MapView({
           icon={createPinIcon(alert.level)}
         >
           <Popup>
-            <div className="min-w-[160px] text-sm">
+            <div className="min-w-[180px] text-sm">
               <p className="font-semibold text-ink">
                 {LEVEL_META[alert.level].label}
               </p>
-              {alert.description ? (
+              {alert.municipio ? (
+                <p className="mt-1 text-ash">
+                  {[alert.municipio, alert.estado].filter(Boolean).join(" · ")}
+                </p>
+              ) : alert.description ? (
                 <p className="mt-1 text-ash">{alert.description}</p>
+              ) : null}
+              {alert.bioma ? (
+                <p className="mt-1 text-xs text-ash/80">Bioma: {alert.bioma}</p>
+              ) : null}
+              {alert.satelite ? (
+                <p className="mt-1 text-xs text-ash/80">
+                  Satélite: {alert.satelite}
+                </p>
+              ) : null}
+              {alert.frp != null ? (
+                <p className="mt-1 text-xs text-ash/80">FRP: {alert.frp} MW</p>
               ) : null}
               <p className="mt-2 text-xs text-ash/80">
                 {new Date(alert.reportedAt).toLocaleString("pt-BR")}
+              </p>
+              <p className="mt-1 text-[10px] uppercase tracking-wide text-ash/60">
+                {alert.source === "inpe"
+                  ? "INPE"
+                  : alert.source === "nasa"
+                    ? "NASA FIRMS"
+                    : alert.source === "user"
+                      ? "Reporte comunitário"
+                      : "EcoMind"}
               </p>
             </div>
           </Popup>

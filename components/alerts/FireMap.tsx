@@ -9,8 +9,19 @@ import { ReportFireModal } from "./ReportFireModal";
 
 type MapLayer = "map" | "satellite";
 
+interface FiresMeta {
+  count: number;
+  inpe: number;
+  nasa: number;
+  inpeSource: string | null;
+  nasaEnabled: boolean;
+  updatedAt: string;
+  errors?: string[];
+}
+
 export default function FireMap() {
   const [alerts, setAlerts] = useState<FireAlert[]>([]);
+  const [meta, setMeta] = useState<FiresMeta | null>(null);
   const [loading, setLoading] = useState(true);
   const [layer, setLayer] = useState<MapLayer>("map");
   const [modalOpen, setModalOpen] = useState(false);
@@ -21,18 +32,47 @@ export default function FireMap() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const loadAlerts = useCallback(async () => {
-    const res = await fetch("/api/alerts");
-    if (!res.ok) throw new Error("Falha ao carregar alertas.");
-    return (await res.json()) as FireAlert[];
+  const loadAllAlerts = useCallback(async () => {
+    const [firesRes, userRes] = await Promise.all([
+      fetch("/api/fires"),
+      fetch("/api/alerts"),
+    ]);
+
+    let satellite: FireAlert[] = [];
+    let metaPayload: FiresMeta | null = null;
+
+    if (firesRes.ok) {
+      const firesData = (await firesRes.json()) as {
+        alerts: FireAlert[];
+        meta: FiresMeta;
+      };
+      satellite = firesData.alerts;
+      metaPayload = firesData.meta;
+    }
+
+    const user: FireAlert[] = userRes.ok
+      ? ((await userRes.json()) as FireAlert[])
+      : [];
+
+    const userOnly = user.filter((a) => a.source === "user");
+    return {
+      alerts: [...satellite, ...userOnly],
+      meta: metaPayload,
+    };
   }, []);
 
   useEffect(() => {
-    loadAlerts()
-      .then(setAlerts)
-      .catch(() => setError("Não foi possível carregar os alertas."))
+    loadAllAlerts()
+      .then(({ alerts: data, meta: m }) => {
+        setAlerts(data);
+        setMeta(m);
+        if (m?.errors?.length && data.length === 0) {
+          setError(m.errors.join(" "));
+        }
+      })
+      .catch(() => setError("Não foi possível carregar os focos de queimada."))
       .finally(() => setLoading(false));
-  }, [loadAlerts]);
+  }, [loadAllAlerts]);
 
   function openReport() {
     setError(null);
@@ -98,8 +138,9 @@ export default function FireMap() {
         setError(payload.error ?? "Erro ao enviar alerta.");
         return;
       }
-      const updated = await loadAlerts();
+      const { alerts: updated, meta: m } = await loadAllAlerts();
       setAlerts(updated);
+      setMeta(m);
       closeReport();
     } catch {
       setError("Erro de rede ao enviar alerta.");
@@ -108,11 +149,18 @@ export default function FireMap() {
     }
   }
 
+  const sourceLabel =
+    meta && meta.inpe > 0
+      ? `INPE · ${meta.inpe} focos${meta.nasa > 0 ? ` · NASA ${meta.nasa}` : ""}`
+      : meta?.nasa
+        ? `NASA FIRMS · ${meta.nasa} focos`
+        : null;
+
   return (
     <div className="relative h-[calc(100svh-4rem)] w-full">
       {loading ? (
         <div className="flex h-full items-center justify-center bg-mist-soft text-ash">
-          Carregando mapa...
+          Carregando focos de satélite...
         </div>
       ) : (
         <MapView
@@ -123,6 +171,15 @@ export default function FireMap() {
           selectedCoords={coords}
         />
       )}
+
+      {sourceLabel ? (
+        <div className="pointer-events-none absolute left-3 top-14 z-[500] sm:top-16">
+          <div className="pointer-events-auto rounded-lg border border-forest/15 bg-white/95 px-3 py-1.5 text-xs font-medium text-forest shadow-md backdrop-blur-sm">
+            {sourceLabel}
+            {meta?.inpeSource === "inpe-10min" ? " · ~10 min" : null}
+          </div>
+        </div>
+      ) : null}
 
       <div className="pointer-events-none absolute inset-x-0 top-3 z-[500] flex justify-center px-3">
         <div

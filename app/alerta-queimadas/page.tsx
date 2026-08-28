@@ -18,8 +18,8 @@ export default function AlertaQueimadasPage() {
             Alerta de queimadas
           </h1>
           <p className="mt-0.5 text-sm text-ash">
-            Mapa interativo com níveis de alerta no Brasil. Toque no + para
-            reportar.
+            Focos reais de satélite (INPE) no Brasil, atualizados a cada ~10
+            minutos. Toque no + para reportar.
           </p>
         </div>
         <AlertaQueimadasClient />

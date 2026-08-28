@@ -15,6 +15,8 @@ Abra [http://localhost:3000](http://localhost:3000).
 
 Mapa de queimadas: [http://localhost:3000/alerta-queimadas](http://localhost:3000/alerta-queimadas)
 
+Dados de satélite: **INPE** (Programa Queimadas, grátis). Opcionalmente **NASA FIRMS** com `FIRMS_MAP_KEY` no `.env.local` (veja `.env.example`).
+
 ## Marca
 
 - Identidade e história: [`MARCA.md`](MARCA.md)
