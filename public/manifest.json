@@ -1,0 +1,19 @@
+{
+  "name": "EcoMind — Consciência ambiental",
+  "short_name": "EcoMind",
+  "description": "Calculadora de pegada, quiz ambiental e mapa de queimadas com dados do INPE.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7fcf8",
+  "theme_color": "#1b5e3b",
+  "lang": "pt-BR",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/brand/icon-ecomind.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

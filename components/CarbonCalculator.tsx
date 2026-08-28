@@ -1,0 +1,140 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import {
+  calculateFootprint,
+  type TransportMode,
+} from "@/lib/carbon/calculate";
+
+const TRANSPORT_OPTIONS: {
+  mode: TransportMode;
+  label: string;
+}[] = [
+  { mode: "carro", label: "Carro" },
+  { mode: "onibus", label: "Ônibus" },
+  { mode: "metro", label: "Metrô/Trem" },
+  { mode: "bike", label: "Bike/A pé" },
+];
+
+export function CarbonCalculator() {
+  const [km, setKm] = useState(12);
+  const [meat, setMeat] = useState(4);
+  const [energy, setEnergy] = useState(220);
+  const [transport, setTransport] = useState<TransportMode>("carro");
+
+  const result = useMemo(
+    () =>
+      calculateFootprint({
+        kmPerDay: km,
+        meatPerWeek: meat,
+        energyReais: energy,
+        transportMode: transport,
+      }),
+    [km, meat, energy, transport],
+  );
+
+  return (
+    <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div className="space-y-8">
+        <div>
+          <label htmlFor="km" className="flex justify-between text-sm font-semibold text-mist">
+            <span>Deslocamento diário</span>
+            <span className="text-sprout">{km} km</span>
+          </label>
+          <input
+            id="km"
+            type="range"
+            min={0}
+            max={80}
+            value={km}
+            onChange={(e) => setKm(Number(e.target.value))}
+            className="mt-2 w-full accent-sprout"
+          />
+        </div>
+
+        <div>
+          <p className="text-sm font-semibold text-mist">Meio de transporte principal</p>
+          <div className="mt-2 flex flex-wrap gap-2">
+            {TRANSPORT_OPTIONS.map((opt) => (
+              <button
+                key={opt.mode}
+                type="button"
+                onClick={() => setTransport(opt.mode)}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                  transport === opt.mode
+                    ? "bg-sprout text-ink"
+                    : "border border-mist/25 text-mist/90 hover:border-sprout/50"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="meat" className="flex justify-between text-sm font-semibold text-mist">
+            <span>Consumo de carne</span>
+            <span className="text-sprout">{meat}x por semana</span>
+          </label>
+          <input
+            id="meat"
+            type="range"
+            min={0}
+            max={14}
+            value={meat}
+            onChange={(e) => setMeat(Number(e.target.value))}
+            className="mt-2 w-full accent-sprout"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="energy" className="flex justify-between text-sm font-semibold text-mist">
+            <span>Conta de energia mensal</span>
+            <span className="text-sprout">
+              R$ {energy} (~{Math.round(result.kwhEstimado)} kWh)
+            </span>
+          </label>
+          <input
+            id="energy"
+            type="range"
+            min={0}
+            max={1000}
+            step={10}
+            value={energy}
+            onChange={(e) => setEnergy(Number(e.target.value))}
+            className="mt-2 w-full accent-sprout"
+          />
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-sprout/20 bg-ink/40 p-8 backdrop-blur-sm">
+        <p className="text-sm font-semibold uppercase tracking-wide text-sprout/80">
+          Estimativa anual
+        </p>
+        <p
+          className={`mt-2 font-display text-6xl font-semibold tabular-nums ${
+            result.level === "excelente" ? "text-sprout" : "text-mist"
+          }`}
+        >
+          {Math.round(result.total).toLocaleString("pt-BR")}
+        </p>
+        <p className="text-lg text-mist/80">kg de CO₂ equivalente por ano</p>
+
+        <div className="mt-6 h-2 overflow-hidden rounded-full bg-mist/10">
+          <div
+            className="h-full rounded-full bg-sprout transition-all duration-300"
+            style={{ width: `${result.progressPct}%` }}
+          />
+        </div>
+
+        <p className="mt-6 text-base leading-relaxed text-mist/90">{result.message}</p>
+
+        <p className="mt-6 text-xs leading-relaxed text-mist/50">
+          Metodologia: fatores médios de transporte (DEFRA/EPA), alimentação
+          (Poore &amp; Nemecek, 2018) e matriz elétrica do SIN (MCTI).
+        </p>
+      </div>
+    </div>
+  );
+}

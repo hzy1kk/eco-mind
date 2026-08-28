@@ -1,12 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const links = [
-  { href: "/#problema", label: "O problema" },
-  { href: "/#ideia", label: "A ideia" },
-  { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/#escola", label: "Na escola" },
-  { href: "/#equipe", label: "Equipe" },
-  { href: "/alerta-queimadas", label: "Alerta de queimadas" },
+  { href: "/calculadora", label: "Calculadora" },
+  { href: "/quiz", label: "Quiz" },
+  { href: "/alerta-queimadas", label: "Mapa de queimadas" },
+  { href: "/baixar", label: "Baixar app" },
   { href: "/#juntar", label: "Participar" },
 ];
 
@@ -28,8 +27,8 @@ export function Footer() {
             </span>
           </div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-mist/70">
-            Consciência ambiental + tecnologia. Projeto escolar para educar sobre
-            desmatamento e queimadas e cultivar ações concretas.
+            Consciência ambiental + tecnologia. Calculadora, quiz, mapa INPE e
+            ações concretas para o planeta.
           </p>
         </div>
 
@@ -37,9 +36,9 @@ export function Footer() {
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             {links.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className="hover:text-sprout">
+                <Link href={link.href} className="hover:text-sprout">
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

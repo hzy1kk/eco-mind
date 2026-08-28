@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 
 const links = [
   { href: "/#problema", label: "O problema" },
-  { href: "/#ideia", label: "A ideia" },
-  { href: "/#como-funciona", label: "Como funciona" },
-  { href: "/#escola", label: "Na escola" },
+  { href: "/calculadora", label: "Calculadora" },
+  { href: "/quiz", label: "Quiz" },
+  { href: "/alerta-queimadas", label: "Mapa" },
   { href: "/#equipe", label: "Equipe" },
-  { href: "/alerta-queimadas", label: "Alerta de queimadas" },
+  { href: "/baixar", label: "Baixar app" },
 ];
 
 interface HeaderProps {
@@ -58,7 +58,7 @@ export function Header({ solid = false }: HeaderProps) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 xl:flex">
+        <nav className="hidden items-center gap-5 xl:flex">
           {links.map((link) => (
             <Link
               key={link.href}

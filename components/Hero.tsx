@@ -26,26 +26,27 @@ export function Hero() {
           </p>
 
           <h1 className="animate-fade-up animate-delay-2 mt-3 max-w-xl font-display text-xl font-medium leading-snug text-sprout sm:text-2xl md:mt-4 md:text-3xl">
-            Consciência ambiental + tecnologia
+            Cada decisão é uma semente.
           </h1>
 
           <p className="animate-fade-up animate-delay-3 mt-4 max-w-lg text-base leading-relaxed text-mist/90 md:mt-5 md:text-xl">
-            Educamos sobre desmatamento e queimadas — e mostramos o que cada
-            pessoa pode fazer no dia a dia.
+            A EcoMind transforma dados ambientais complexos em decisões simples
+            do dia a dia — conscientização, pegada de carbono e alertas de
+            queimadas.
           </p>
 
           <div className="animate-fade-up animate-delay-3 mt-7 flex flex-wrap items-center gap-3 md:mt-9">
             <a
-              href="#juntar"
+              href="/calculadora"
               className="inline-flex rounded-md bg-sprout px-5 py-3 text-base font-semibold text-forest transition hover:bg-white md:px-6 md:py-3.5"
             >
-              Quero participar
+              Calcular minha pegada
             </a>
             <a
-              href="#problema"
+              href="/baixar"
               className="inline-flex rounded-md border border-mist/35 px-5 py-3 text-base font-medium text-mist transition hover:border-mist/70 hover:bg-white/10 md:px-6 md:py-3.5"
             >
-              Entenda o problema
+              Baixar app
             </a>
           </div>
         </div>

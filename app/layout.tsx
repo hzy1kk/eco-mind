@@ -16,7 +16,13 @@ const body = Source_Sans_3({
 export const metadata: Metadata = {
   title: "EcoMind — Consciência ambiental + tecnologia",
   description:
-    "A EcoMind educa sobre desmatamento e queimadas, propõe missões de conscientização e mostra caminhos práticos para agir na escola, em casa e na comunidade.",
+    "App EcoMind: calculadora de pegada, quiz ambiental, mapa de queimadas INPE e conscientização sobre desmatamento.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "EcoMind",
+    statusBarStyle: "default",
+  },
   icons: {
     icon: "/brand/icon-ecomind.png",
     apple: "/brand/icon-ecomind.png",
