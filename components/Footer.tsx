@@ -1,12 +1,13 @@
 import Image from "next/image";
 
 const links = [
-  { href: "#problema", label: "O problema" },
-  { href: "#ideia", label: "A ideia" },
-  { href: "#como-funciona", label: "Como funciona" },
-  { href: "#escola", label: "Na escola" },
-  { href: "#equipe", label: "Equipe" },
-  { href: "#juntar", label: "Participar" },
+  { href: "/#problema", label: "O problema" },
+  { href: "/#ideia", label: "A ideia" },
+  { href: "/#como-funciona", label: "Como funciona" },
+  { href: "/#escola", label: "Na escola" },
+  { href: "/#equipe", label: "Equipe" },
+  { href: "/alerta-queimadas", label: "Alerta de queimadas" },
+  { href: "/#juntar", label: "Participar" },
 ];
 
 export function Footer() {

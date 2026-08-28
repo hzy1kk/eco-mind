@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 :root {
   --forest: #1b5e3b;
@@ -128,6 +129,15 @@ body {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+.fire-pin-icon {
+  background: transparent;
+  border: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
