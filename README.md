@@ -13,6 +13,8 @@ npm run dev
 
 Abra [http://localhost:3000](http://localhost:3000).
 
+Mapa de queimadas: [http://localhost:3000/alerta-queimadas](http://localhost:3000/alerta-queimadas)
+
 ## Marca
 
 - Identidade e história: [`MARCA.md`](MARCA.md)
