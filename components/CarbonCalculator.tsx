@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CarbonBreakdown } from "./CarbonBreakdown";
 import {
   calculateFootprint,
   type TransportMode,
@@ -129,6 +130,13 @@ export function CarbonCalculator() {
         </div>
 
         <p className="mt-6 text-base leading-relaxed text-mist/90">{result.message}</p>
+
+        <CarbonBreakdown
+          transport={result.transportAnnual}
+          meat={result.meatAnnual}
+          energy={result.energyAnnual}
+          total={result.total}
+        />
 
         <p className="mt-6 text-xs leading-relaxed text-mist/50">
           Metodologia: fatores médios de transporte (DEFRA/EPA), alimentação

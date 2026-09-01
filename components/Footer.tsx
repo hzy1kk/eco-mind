@@ -49,6 +49,26 @@ export function Footer() {
         <p>
           EcoMind · Projeto desenvolvido por alunos · Colégio Paulo de Tarso
         </p>
+        <p className="mt-2">
+          Dados:{" "}
+          <a
+            href="https://queimadas.dgi.inpe.br/"
+            className="underline hover:text-sprout"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            INPE Queimadas
+          </a>
+          {" · "}
+          <a
+            href="https://github.com/hzy1kk/eco-mind"
+            className="underline hover:text-sprout"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+        </p>
       </div>
     </footer>
   );

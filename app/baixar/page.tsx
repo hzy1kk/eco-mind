@@ -1,13 +1,21 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Header } from "@/components/Header";
+import { QrInstall } from "@/components/shell/QrInstall";
 
 export const metadata: Metadata = {
-  title: "Baixar app — EcoMind",
+  title: "Baixar app",
   description:
-    "Instale a EcoMind no celular ou use no navegador — calculadora, quiz e mapa de queimadas.",
+    "Instale a EcoMind no celular — calculadora, quiz e mapa de queimadas com dados do INPE.",
 };
+
+const features = [
+  { icon: "◎", text: "Calculadora de pegada de carbono" },
+  { icon: "?", text: "Quiz ambiental com dados reais" },
+  { icon: "⊕", text: "Mapa de queimadas (INPE)" },
+  { icon: "+", text: "Reporte comunitário de focos" },
+];
 
 export default function BaixarPage() {
   return (
@@ -21,7 +29,7 @@ export default function BaixarPage() {
               alt=""
               width={64}
               height={64}
-              className="h-16 w-16 rounded-2xl"
+              className="h-16 w-16 rounded-2xl shadow-md ring-2 ring-sprout/30"
             />
             <div>
               <h1 className="font-display text-3xl font-semibold text-forest">
@@ -31,50 +39,54 @@ export default function BaixarPage() {
             </div>
           </div>
 
-          <div className="mt-10 space-y-6">
-            <section className="rounded-xl border border-forest/15 bg-white/80 p-6">
-              <h2 className="font-display text-xl font-semibold text-forest">
-                Instalar no celular (recomendado)
-              </h2>
-              <ul className="mt-4 space-y-3 text-base text-ash">
-                <li>
-                  <strong className="text-ink">Android (Chrome):</strong> abra o
-                  site → menu ⋮ → &quot;Instalar app&quot; ou &quot;Adicionar à
-                  tela inicial&quot;
-                </li>
-                <li>
-                  <strong className="text-ink">iPhone (Safari):</strong>{" "}
-                  Compartilhar → &quot;Adicionar à Tela de Início&quot;
-                </li>
-              </ul>
-              <Link
-                href="/"
-                className="mt-5 inline-flex rounded-md bg-forest px-5 py-3 text-sm font-semibold text-mist hover:bg-forest-mid"
-              >
-                Abrir o app no navegador
-              </Link>
-            </section>
+          <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto]">
+            <div className="space-y-6">
+              <section className="glass-panel rounded-2xl p-6 shadow-sm">
+                <h2 className="font-display text-xl font-semibold text-forest">
+                  Instalar no celular
+                </h2>
+                <ul className="mt-4 space-y-3 text-base text-ash">
+                  <li>
+                    <strong className="text-ink">Android:</strong> Chrome → menu
+                    ⋮ → Instalar app
+                  </li>
+                  <li>
+                    <strong className="text-ink">iPhone:</strong> Safari →
+                    Compartilhar → Adicionar à Tela de Início
+                  </li>
+                </ul>
+                <Link
+                  href="/"
+                  className="btn-primary mt-5 inline-flex rounded-md bg-forest px-5 py-3 text-sm font-semibold text-mist"
+                >
+                  Abrir no navegador
+                </Link>
+              </section>
 
-            <section className="rounded-xl border border-forest/15 bg-white/80 p-6">
-              <h2 className="font-display text-xl font-semibold text-forest">
-                O que inclui
-              </h2>
-              <ul className="mt-4 space-y-2 text-ash">
-                <li>— Calculadora de pegada de carbono</li>
-                <li>— Quiz ambiental com dados reais</li>
-                <li>— Mapa de queimadas (INPE)</li>
-                <li>— Reporte comunitário de focos</li>
-              </ul>
-            </section>
+              <section className="glass-panel rounded-2xl p-6 shadow-sm">
+                <h2 className="font-display text-xl font-semibold text-forest">
+                  O que inclui
+                </h2>
+                <ul className="mt-4 space-y-3">
+                  {features.map((f) => (
+                    <li key={f.text} className="flex items-center gap-3 text-ash">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sprout/30 text-sm text-forest">
+                        {f.icon}
+                      </span>
+                      {f.text}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </div>
 
-            <section className="rounded-xl border border-dashed border-forest/25 bg-mist-soft/50 p-6">
-              <h2 className="font-display text-xl font-semibold text-forest">
-                Download Android (APK)
+            <section className="glass-panel flex flex-col items-center rounded-2xl p-6 shadow-sm">
+              <h2 className="font-display text-lg font-semibold text-forest">
+                QR Code
               </h2>
-              <p className="mt-2 text-sm text-ash">
-                Em breve: arquivo APK para instalar fora da Play Store. Por
-                enquanto, use a instalação PWA acima.
-              </p>
+              <div className="mt-4">
+                <QrInstall />
+              </div>
             </section>
           </div>
         </div>

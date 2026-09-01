@@ -4,6 +4,8 @@ import {
   ClimateReality,
   ImpactStats,
 } from "@/components/ClimateSections";
+import { CtaBanner } from "@/components/CtaBanner";
+import { FeaturesGrid } from "@/components/FeaturesGrid";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
@@ -14,6 +16,7 @@ import { Problem } from "@/components/Problem";
 import { QuizPreview } from "@/components/QuizPreview";
 import { School } from "@/components/School";
 import { Team } from "@/components/Team";
+import { TrustStrip } from "@/components/TrustStrip";
 
 export default function Home() {
   return (
@@ -21,6 +24,8 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <TrustStrip />
+        <FeaturesGrid />
         <ImpactStats />
         <Problem />
         <Idea />
@@ -31,6 +36,7 @@ export default function Home() {
         <AlertsPreview />
         <School />
         <Team />
+        <CtaBanner />
         <JoinForm />
       </main>
       <Footer />

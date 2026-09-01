@@ -156,3 +156,121 @@ body {
     transition: none;
   }
 }
+
+/* Premium polish */
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+.btn-primary {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 4px 14px rgba(184, 236, 200, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(184, 236, 200, 0.35);
+  background-color: #fff;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(27, 94, 59, 0.1);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sprout-deep);
+  outline-offset: 2px;
+}
+
+input[type="range"] {
+  height: 6px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--mist-soft) 25%,
+    var(--sprout) 50%,
+    var(--mist-soft) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+.card-premium {
+  border-radius: 1rem;
+  border: 1px solid rgba(27, 94, 59, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 24px rgba(27, 94, 59, 0.06);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(27, 94, 59, 0.25);
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--forest);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--forest);
+  color: var(--mist);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.leaflet-container {
+  font-family: inherit;
+}
+
+.fire-pin-icon {
+  background: transparent;
+  border: none;
+}

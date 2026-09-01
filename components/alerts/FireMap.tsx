@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { isInBrazil } from "@/lib/alerts/geo";
+import { ALERT_LEVELS, LEVEL_META } from "@/lib/alerts/levels";
 import type { AlertLevel, FireAlert } from "@/lib/alerts/types";
 import { FireLegend } from "./FireLegend";
 import { MapView } from "./MapView";
@@ -31,6 +32,8 @@ export default function FireMap() {
   );
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [levelFilter, setLevelFilter] = useState<AlertLevel | "all">("all");
+  const [refreshing, setRefreshing] = useState(false);
 
   const loadAllAlerts = useCallback(async () => {
     const [firesRes, userRes] = await Promise.all([
@@ -73,6 +76,20 @@ export default function FireMap() {
       .catch(() => setError("Não foi possível carregar os focos de queimada."))
       .finally(() => setLoading(false));
   }, [loadAllAlerts]);
+
+  async function refreshData() {
+    setRefreshing(true);
+    setError(null);
+    try {
+      const { alerts: data, meta: m } = await loadAllAlerts();
+      setAlerts(data);
+      setMeta(m);
+    } catch {
+      setError("Não foi possível atualizar os dados.");
+    } finally {
+      setRefreshing(false);
+    }
+  }
 
   function openReport() {
     setError(null);
@@ -156,15 +173,29 @@ export default function FireMap() {
         ? `NASA FIRMS · ${meta.nasa} focos`
         : null;
 
+  const filteredAlerts =
+    levelFilter === "all"
+      ? alerts
+      : alerts.filter((a) => a.level === levelFilter);
+
+  const levelCounts = ALERT_LEVELS.reduce(
+    (acc, level) => {
+      acc[level] = alerts.filter((a) => a.level === level).length;
+      return acc;
+    },
+    {} as Record<AlertLevel, number>,
+  );
+
   return (
-    <div className="relative h-[calc(100svh-4rem)] w-full">
+    <div className="relative h-[calc(100svh-8.5rem-env(safe-area-inset-bottom))] w-full md:h-[calc(100svh-4rem)]">
       {loading ? (
-        <div className="flex h-full items-center justify-center bg-mist-soft text-ash">
-          Carregando focos de satélite...
+        <div className="flex h-full flex-col items-center justify-center gap-4 bg-mist-soft text-ash">
+          <div className="h-12 w-12 animate-pulse-soft rounded-full border-2 border-forest/30 border-t-forest" />
+          <p>Carregando focos de satélite...</p>
         </div>
       ) : (
         <MapView
-          alerts={alerts}
+          alerts={filteredAlerts}
           layer={layer}
           pickMode={pickMode && modalOpen}
           onMapClick={handleMapClick}
@@ -173,13 +204,60 @@ export default function FireMap() {
       )}
 
       {sourceLabel ? (
-        <div className="pointer-events-none absolute left-3 top-14 z-[500] sm:top-16">
+        <div className="pointer-events-none absolute left-3 top-14 z-[500] flex items-center gap-2 sm:top-16">
           <div className="pointer-events-auto rounded-lg border border-forest/15 bg-white/95 px-3 py-1.5 text-xs font-medium text-forest shadow-md backdrop-blur-sm">
             {sourceLabel}
             {meta?.inpeSource === "inpe-10min" ? " · ~10 min" : null}
+            <span className="ml-1 text-ash/70">
+              · {filteredAlerts.length} visíveis
+            </span>
           </div>
+          <button
+            type="button"
+            onClick={refreshData}
+            disabled={refreshing}
+            aria-label="Atualizar dados"
+            className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg border border-forest/15 bg-white/95 text-forest shadow-md backdrop-blur-sm transition hover:bg-mist-soft disabled:opacity-50"
+          >
+            <span className={refreshing ? "animate-spin" : ""}>↻</span>
+          </button>
         </div>
       ) : null}
+
+      <div className="pointer-events-none absolute left-3 top-[4.5rem] z-[500] sm:top-[5.5rem]">
+        <div className="pointer-events-auto flex flex-wrap gap-1 rounded-lg border border-forest/15 bg-white/95 p-1 shadow-md backdrop-blur-sm">
+          <button
+            type="button"
+            onClick={() => setLevelFilter("all")}
+            className={`rounded-md px-2 py-1 text-[10px] font-semibold uppercase ${
+              levelFilter === "all"
+                ? "bg-forest text-mist"
+                : "text-ash hover:bg-forest/10"
+            }`}
+          >
+            Todos ({alerts.length})
+          </button>
+          {ALERT_LEVELS.map((level) => (
+            <button
+              key={level}
+              type="button"
+              onClick={() => setLevelFilter(level)}
+              className={`rounded-md px-2 py-1 text-[10px] font-semibold uppercase ${
+                levelFilter === level
+                  ? "text-mist"
+                  : "text-ash hover:bg-forest/10"
+              }`}
+              style={
+                levelFilter === level
+                  ? { backgroundColor: LEVEL_META[level].color }
+                  : undefined
+              }
+            >
+              {LEVEL_META[level].label} ({levelCounts[level]})
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="pointer-events-none absolute inset-x-0 top-3 z-[500] flex justify-center px-3">
         <div
@@ -216,7 +294,7 @@ export default function FireMap() {
         type="button"
         onClick={openReport}
         aria-label="Reportar queimada"
-        className="absolute bottom-6 right-4 z-[500] flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-3xl font-light text-white shadow-lg transition hover:bg-red-700"
+        className="absolute bottom-28 right-4 z-[500] flex h-14 w-14 items-center justify-center rounded-full bg-red-600 text-3xl font-light text-white shadow-lg transition hover:bg-red-700 md:bottom-6"
       >
         +
       </button>
