@@ -34,6 +34,6 @@ A metáfora da marca é a **semente que vira broto**: pequenas ações e conheci
 ## Logo
 
 - PNG: [`assets/logo-ecomind.png`](assets/logo-ecomind.png)
-- SVG: [`assets/logo-ecomind.svg`](assets/logo-ecomind.svg)
+- Ícone: [`assets/icon-ecomind.png`](assets/icon-ecomind.png)
 
-Conceito: **Amazônia em contraste** — floresta viva de um lado, queimada/desmatamento do outro, com um **broto** no centro (esperança e regeneração). Estilo ilustração vetorial, alinhado ao tema do app.
+Conceito: **natureza + mente** — metade folha, metade cérebro em circuito, unindo meio ambiente e consciência tecnológica. Gradiente verde-água a lima, em círculo.
