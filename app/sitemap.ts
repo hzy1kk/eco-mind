@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://eco-mind.vercel.app";
+  const base = "https://eco-mind-ashy.vercel.app";
   const routes = [
     "",
     "/calculadora",

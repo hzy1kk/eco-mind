@@ -15,7 +15,7 @@ const body = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://eco-mind.vercel.app"),
+  metadataBase: new URL("https://eco-mind-ashy.vercel.app"),
   title: {
     default: "EcoMind — Consciência ambiental + tecnologia",
     template: "%s · EcoMind",
